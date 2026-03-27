@@ -54,18 +54,6 @@ export const demoData: DemoCard[] = [
     tag: "bg-amber-100 text-amber-700",
     live: true,
   },
-  {
-    slug: "air-central-carolinas",
-    name: "Air Central of the Carolinas",
-    industry: "HVAC",
-    summary:
-      "A light, airy multi-page demo for a trusted residential HVAC company — homepage, 6 service pages, about, contact, and service area. Soft blue palette with warm, conversion-focused copy targeting NC homeowners.",
-    accent: "text-blue-600",
-    bg: "bg-blue-50",
-    border: "border-blue-100",
-    tag: "bg-blue-100 text-blue-700",
-    live: true,
-  },
 ];
 
 interface DemoCardProps {

@@ -19,15 +19,15 @@ export interface DemoCard {
 
 export const demoData: DemoCard[] = [
   {
-    slug: "heatingandairconnect",
-    name: "Heating & Air Connect",
+    slug: "supercoolhvac",
+    name: "Super Cool HVAC",
     industry: "HVAC",
     summary:
-      "A full-featured demo for a Charlotte, NC HVAC company — diagnostics, maintenance, real estate inspections, service area pages, testimonials, FAQ, and a working lead form.",
-    accent: "text-blue-600",
-    bg: "bg-blue-50",
-    border: "border-blue-100",
-    tag: "bg-blue-100 text-blue-700",
+      "A premium multi-page demo for a locally owned Charlotte HVAC company — homepage, residential, commercial, maintenance, installation, repair, IAQ, inspections, financing, about, environmental, and contact.",
+    accent: "text-cyan-600",
+    bg: "bg-cyan-50",
+    border: "border-cyan-100",
+    tag: "bg-cyan-100 text-cyan-700",
     live: true,
   },
   {
@@ -40,6 +40,18 @@ export const demoData: DemoCard[] = [
     bg: "bg-sky-50",
     border: "border-sky-100",
     tag: "bg-sky-100 text-sky-700",
+    live: true,
+  },
+  {
+    slug: "hvac-group-inc-premium",
+    name: "HVAC Group Inc",
+    industry: "HVAC",
+    summary:
+      "A dark-themed premium multi-page demo for a bilingual Charlotte, NC HVAC contractor — homepage, 6 service pages, commercial HVAC, about, contact, and service area. Amber-copper design with SEO-optimized copy.",
+    accent: "text-amber-600",
+    bg: "bg-amber-50",
+    border: "border-amber-100",
+    tag: "bg-amber-100 text-amber-700",
     live: true,
   },
 ];

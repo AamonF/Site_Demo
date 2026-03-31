@@ -52,12 +52,12 @@ const benefits = [
 
 export default function Benefits() {
   return (
-    <section className="py-20 lg:py-28 bg-white">
+    <section className="py-20 lg:py-28 bg-white border-y border-zinc-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="What You Get"
-          title="Built to Perform, Not Just Look Good"
-          subtitle="Every demo is designed around one goal: converting website visitors into phone calls and booked jobs."
+          eyebrow="What you get"
+          title="Built to perform—not just look good"
+          subtitle="Every demo is aimed at one outcome: more calls and booked jobs from the same traffic."
         />
 
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -68,15 +68,15 @@ export default function Benefits() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-accent-100 transition-all duration-300 group"
+              className="bg-zinc-50/50 border border-zinc-200/80 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-accent-200/60 hover:bg-white transition-all duration-300 group"
             >
-              <div className="w-11 h-11 rounded-xl bg-accent-50 group-hover:bg-accent-100 flex items-center justify-center mb-4 transition-colors">
+              <div className="w-11 h-11 rounded-xl bg-white border border-zinc-100 group-hover:border-accent-100 flex items-center justify-center mb-4 transition-colors shadow-sm">
                 <benefit.icon className="w-5 h-5 text-accent-600" />
               </div>
-              <h3 className="text-base font-bold text-slate-900 mb-2">
+              <h3 className="text-base font-bold text-zinc-900 mb-2">
                 {benefit.title}
               </h3>
-              <p className="text-sm text-slate-500 leading-relaxed">
+              <p className="text-sm text-zinc-600 leading-relaxed">
                 {benefit.description}
               </p>
             </motion.div>

@@ -74,6 +74,27 @@ export default function AMWhyUs({ demo }: AMWhyUsProps) {
           ))}
         </motion.div>
 
+        {/* Team photo banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55 }}
+          className="relative rounded-2xl overflow-hidden aspect-[21/6] mb-10 shadow-xl"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1766414629984-73a93e7caba0?w=1400&q=80&auto=format&fit=crop"
+            alt="Andrew Matthews HVAC technician at work"
+            className="w-full h-full object-cover object-center"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-stone-900/70 via-transparent to-transparent" />
+          <div className="absolute bottom-5 left-6">
+            <p className="text-white font-black text-lg">Licensed HVAC Professionals</p>
+            <p className="text-emerald-400 text-sm font-semibold">Serving Charlotte Since 2009</p>
+          </div>
+        </motion.div>
+
         {/* 3-col benefit grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {demo.whyPoints.map((point, i) => {

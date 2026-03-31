@@ -23,127 +23,133 @@ export default function PEHero({ phone, city, onOpenModal }: Props) {
       id="home"
       className="relative min-h-[100svh] bg-zinc-950 flex flex-col justify-center overflow-hidden"
     >
+      {/* Full-bleed hero photo — behind text & circuit art */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-0 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1758101755915-462eddc23f57?w=1920&q=80&auto=format&fit=crop')",
+        }}
+      />
+      <div className="absolute inset-0 z-0 bg-zinc-950/75 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-r from-zinc-950/90 via-zinc-950/60 to-zinc-950/30 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-t from-zinc-950/90 via-transparent to-zinc-950/50 pointer-events-none" />
+
       <ElectricBackground />
 
       {/* Dark vignette overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-transparent to-black/40 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-br from-black/60 via-transparent to-black/40 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-t from-zinc-950 via-transparent to-transparent pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-24 w-full">
-        <div className="max-w-3xl">
-          {/* Top badge */}
-          <motion.div {...fadeUp(0)} className="mb-6">
-            <span className="inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/25 text-yellow-400 text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              Licensed &amp; Insured · {city}, NC
-            </span>
-          </motion.div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-          {/* H1 */}
-          <motion.h1
-            {...fadeUp(0.1)}
-            className="text-[2.75rem] sm:text-6xl md:text-7xl font-black text-white leading-[1.02] tracking-tight mb-6"
-          >
-            Safe, Reliable{" "}
-            <span className="relative inline-block">
-              <span className="text-yellow-400">Electrical</span>
-              <motion.span
-                className="absolute -bottom-1 left-0 w-full h-[3px] bg-yellow-400 rounded-full origin-left"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.6, duration: 0.6, ease: "easeOut" }}
-              />
-            </span>
-            <br />
-            Services in {city}
-          </motion.h1>
+          {/* Left — text content */}
+          <div>
+            {/* Top badge */}
+            <motion.div {...fadeUp(0)} className="mb-6">
+              <span className="inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/25 text-yellow-400 text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                Licensed &amp; Insured · {city}, NC
+              </span>
+            </motion.div>
 
-          {/* Subheadline */}
-          <motion.p
-            {...fadeUp(0.2)}
-            className="text-lg sm:text-xl text-zinc-300 mb-8 max-w-2xl leading-relaxed"
-          >
-            Licensed electricians. Code-compliant work. Done right the first time.{" "}
-            <span className="text-white font-semibold">No shortcuts. No surprises.</span>
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            {...fadeUp(0.3)}
-            className="flex flex-col sm:flex-row gap-3 mb-10"
-          >
-            <button
-              onClick={onOpenModal}
-              className="group flex items-center justify-center gap-2 bg-yellow-400 hover:bg-yellow-300 text-black font-black text-lg px-8 py-4 rounded-xl transition-all duration-200 shadow-2xl shadow-yellow-400/20 hover:shadow-yellow-400/35 hover:-translate-y-0.5"
+            {/* H1 */}
+            <motion.h1
+              {...fadeUp(0.1)}
+              className="text-[2.5rem] sm:text-5xl md:text-6xl font-black text-white leading-[1.02] tracking-tight mb-6"
             >
-              Request Service
-              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <a
-              href={`tel:${rawPhone}`}
-              className="flex items-center justify-center gap-2.5 bg-zinc-800/80 hover:bg-zinc-800 border border-zinc-700 hover:border-zinc-500 text-white font-bold text-lg px-8 py-4 rounded-xl transition-all duration-200 hover:-translate-y-0.5"
-            >
-              <Phone className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-              Call Now: {phone}
-            </a>
-          </motion.div>
+              Safe, Reliable{" "}
+              <span className="relative inline-block">
+                <span className="text-yellow-400">Electrical</span>
+                <motion.span
+                  className="absolute -bottom-1 left-0 w-full h-[3px] bg-yellow-400 rounded-full origin-left"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.6, duration: 0.6, ease: "easeOut" }}
+                />
+              </span>
+              <br />
+              Services in {city}
+            </motion.h1>
 
-          {/* Trust micro-signals */}
+            {/* Subheadline */}
+            <motion.p
+              {...fadeUp(0.2)}
+              className="text-lg text-zinc-300 mb-8 leading-relaxed"
+            >
+              Licensed electricians. Code-compliant work. Done right the first time.{" "}
+              <span className="text-white font-semibold">No shortcuts. No surprises.</span>
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              {...fadeUp(0.3)}
+              className="flex flex-col sm:flex-row gap-3 mb-10"
+            >
+              <button
+                onClick={onOpenModal}
+                className="group flex items-center justify-center gap-2 bg-yellow-400 hover:bg-yellow-300 text-black font-black text-lg px-8 py-4 rounded-xl transition-all duration-200 shadow-2xl shadow-yellow-400/20 hover:shadow-yellow-400/35 hover:-translate-y-0.5"
+              >
+                Request Service
+                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </button>
+              <a
+                href={`tel:${rawPhone}`}
+                className="flex items-center justify-center gap-2.5 bg-zinc-800/80 hover:bg-zinc-800 border border-zinc-700 hover:border-zinc-500 text-white font-bold text-lg px-8 py-4 rounded-xl transition-all duration-200 hover:-translate-y-0.5"
+              >
+                <Phone className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                Call Now: {phone}
+              </a>
+            </motion.div>
+
+            {/* Trust micro-signals */}
+            <motion.div
+              {...fadeUp(0.45)}
+              className="flex flex-wrap gap-x-6 gap-y-3"
+            >
+              {[
+                "24/7 Emergency Service",
+                "Free Estimates",
+                "100% Satisfaction Guarantee",
+              ].map((item) => (
+                <div key={item} className="flex items-center gap-2 text-zinc-400 text-sm">
+                  <div className="w-1.5 h-1.5 rounded-full bg-yellow-400 flex-shrink-0" />
+                  {item}
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Right — review (photo is full-bleed behind hero) */}
           <motion.div
-            {...fadeUp(0.45)}
-            className="flex flex-wrap gap-x-6 gap-y-3"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="hidden lg:flex flex-col gap-4"
           >
-            {[
-              "24/7 Emergency Service",
-              "Free Estimates",
-              "100% Satisfaction Guarantee",
-            ].map((item) => (
-              <div key={item} className="flex items-center gap-2 text-zinc-400 text-sm">
-                <div className="w-1.5 h-1.5 rounded-full bg-yellow-400 flex-shrink-0" />
-                {item}
+            {/* Review card */}
+            <div className="bg-zinc-900/80 border border-zinc-800 rounded-xl p-4 shadow-2xl">
+              <div className="flex gap-0.5 mb-2">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
+                ))}
               </div>
-            ))}
+              <p className="text-zinc-300 text-sm leading-relaxed mb-3">
+                &quot;Best electrician in {city}. On time, professional, and explained everything clearly.&quot;
+              </p>
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-full bg-yellow-400/20 border border-yellow-400/30 flex items-center justify-center text-yellow-400 font-bold text-xs">M</div>
+                <div>
+                  <p className="text-white text-xs font-bold">Mike T.</p>
+                  <p className="text-zinc-500 text-[10px]">Google Review</p>
+                </div>
+              </div>
+            </div>
           </motion.div>
+
         </div>
-
-        {/* Floating review card */}
-        <motion.div
-          initial={{ opacity: 0, x: 40, y: 20 }}
-          animate={{ opacity: 1, x: 0, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="hidden lg:block absolute right-6 xl:right-0 top-1/2 -translate-y-1/2 bg-zinc-900/90 backdrop-blur-sm border border-zinc-700/60 rounded-2xl p-5 max-w-[240px] shadow-2xl"
-        >
-          <div className="flex gap-0.5 mb-2">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-            ))}
-          </div>
-          <p className="text-zinc-200 text-sm leading-relaxed mb-3">
-            &quot;Best electrician in {city}. On time, professional, and explained everything clearly.&quot;
-          </p>
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-yellow-400/20 border border-yellow-400/30 flex items-center justify-center text-yellow-400 font-bold text-sm">
-              M
-            </div>
-            <div>
-              <p className="text-white text-xs font-bold">Mike T.</p>
-              <p className="text-zinc-500 text-[10px]">Google Review</p>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Danger/safety callout */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9, duration: 0.5 }}
-          className="hidden lg:flex absolute right-6 xl:right-0 bottom-24 items-center gap-3 bg-red-950/60 border border-red-900/50 rounded-xl px-4 py-3 max-w-[240px]"
-        >
-          <AlertTriangle className="w-5 h-5 text-red-400 flex-shrink-0" />
-          <p className="text-red-300 text-xs font-semibold leading-tight">
-            Faulty wiring is the #1 cause of house fires. Don&apos;t delay repairs.
-          </p>
-        </motion.div>
       </div>
 
       {/* Scroll indicator */}
@@ -151,7 +157,7 @@ export default function PEHero({ phone, city, onOpenModal }: Props) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden sm:block"
+        className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 hidden sm:block"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}
@@ -167,7 +173,7 @@ export default function PEHero({ phone, city, onOpenModal }: Props) {
 
 function ElectricBackground() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+    <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
       {/* Animated SVG circuit traces */}
       <svg
         className="absolute w-full h-full opacity-100"

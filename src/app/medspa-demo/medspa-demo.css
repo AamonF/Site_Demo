@@ -1,0 +1,16 @@
+.medspa-demo-page {
+  font-family: var(--font-ms-body), ui-sans-serif, system-ui, sans-serif;
+  --ms-blush: #f4e8e6;
+  --ms-beige: #f7f3ef;
+  --ms-taupe: #8b7e74;
+  --ms-rose: #c9a89a;
+  --ms-ink: #2c2825;
+}
+
+.medspa-demo-page .font-serif {
+  font-family: var(--font-ms-heading), ui-serif, Georgia, serif;
+}
+
+.medspa-demo-page {
+  scroll-behavior: smooth;
+}

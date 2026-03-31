@@ -1,3 +1,4 @@
+import { DemoRequestProvider } from "@/components/launch/DemoRequestProvider";
 import Header from "@/components/sections/Header";
 import Hero from "@/components/sections/Hero";
 import TrustStrip from "@/components/sections/TrustStrip";
@@ -12,7 +13,7 @@ import MobileStickyCTA from "@/components/ui/MobileStickyCTA";
 
 export default function HomePage() {
   return (
-    <>
+    <DemoRequestProvider>
       <Header />
       <main>
         <Hero />
@@ -26,6 +27,6 @@ export default function HomePage() {
       </main>
       <Footer />
       <MobileStickyCTA />
-    </>
+    </DemoRequestProvider>
   );
 }

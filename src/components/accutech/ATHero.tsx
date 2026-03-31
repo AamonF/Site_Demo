@@ -18,8 +18,22 @@ export default function ATHero({ demo }: ATHeroProps) {
       className="relative bg-gradient-to-br from-slate-900 via-slate-900 to-teal-950 text-white overflow-hidden"
       aria-label="Hero"
     >
+      {/* Full-bleed hero photo — behind all copy */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-0 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1724488751821-1415f5cf4960?w=1920&q=80&auto=format&fit=crop')",
+        }}
+      />
+      <div className="absolute inset-0 z-0 bg-teal-950/75 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-r from-teal-950/90 via-teal-950/55 to-teal-950/30 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-t from-teal-950/90 via-transparent to-teal-950/45 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-br from-slate-900/60 via-slate-900/40 to-teal-950/60 pointer-events-none" />
+
       {/* Decorative blobs */}
-      <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
+      <div aria-hidden="true" className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <div className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full bg-teal-700/10 blur-3xl -translate-y-1/3 translate-x-1/4" />
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-teal-900/25 blur-3xl translate-y-1/3 -translate-x-1/4" />
         <div
@@ -31,7 +45,7 @@ export default function ATHero({ demo }: ATHeroProps) {
         />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           {/* Left column — headline + CTAs */}
@@ -111,13 +125,14 @@ export default function ATHero({ demo }: ATHeroProps) {
             </motion.ul>
           </div>
 
-          {/* Right column — contact info card */}
+          {/* Right column — photo + contact info card */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.65, delay: 0.25 }}
+            className="flex flex-col gap-4"
           >
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-7 lg:p-8">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-7 lg:p-8 shadow-2xl">
               <div className="mb-6 pb-6 border-b border-white/10">
                 <h2 className="text-base font-extrabold text-white tracking-tight">
                   Accu-Tech HVAC Services LLC
@@ -190,7 +205,7 @@ export default function ATHero({ demo }: ATHeroProps) {
                 {demo.bookingCTA}
                 <ArrowRight className="w-4 h-4" />
               </button>
-            </div>
+            </div>{/* /contact card */}
           </motion.div>
         </div>
       </div>

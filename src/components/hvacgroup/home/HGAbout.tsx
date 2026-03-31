@@ -50,26 +50,40 @@ export default function HGAbout() {
             </Link>
           </div>
 
-          {/* Timeline card */}
-          <div className="relative">
-            <div className="bg-slate-950 rounded-2xl p-8 lg:p-10 space-y-8">
+          {/* Team photo + timeline combo */}
+          <div className="relative flex flex-col gap-4">
+            {/* Main team photo */}
+            <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-2xl">
+              <img
+                src="https://images.unsplash.com/photo-1724488751821-1415f5cf4960?w=900&q=85&auto=format&fit=crop"
+                alt="HVAC Group Inc technician servicing a system"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
+              {/* Year badge */}
+              <div className="absolute top-4 left-4 bg-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                Est. 2017
+              </div>
+              <div className="absolute bottom-4 left-4 right-4">
+                <p className="text-white font-bold text-base">HVAC Group Inc — Charlotte, NC</p>
+                <p className="text-slate-300 text-sm">Family-owned · Bilingual · 20 years experience</p>
+              </div>
+            </div>
+
+            {/* Compact milestone cards */}
+            <div className="grid grid-cols-3 gap-2">
               {[
-                { year: "2005", title: "Trade Experience Begins", desc: "Hands-on HVAC training and field work begins — building the diagnostic instincts and technical depth that define every job today.", highlight: false },
-                { year: "2017", title: "HVAC Group Inc Founded", desc: "Launched in Charlotte, NC with a clear focus: deliver premium HVAC service backed by a decade of real-world experience.", highlight: false },
-                { year: "Now", title: "Serving the Charlotte Region", desc: "Trusted residential and commercial HVAC across Charlotte and surrounding communities. Bilingual. Growing.", highlight: true },
-              ].map(({ year, title, desc, highlight }) => (
-                <div key={year} className="flex items-start gap-5">
-                  <div className={`w-12 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-xs font-bold ${
-                    highlight ? "bg-emerald-600 text-white" : "bg-emerald-500/10 border border-emerald-500/25 text-emerald-400"
-                  }`}>{year}</div>
-                  <div>
-                    <p className="text-white font-semibold text-sm mb-1">{title}</p>
-                    <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
-                  </div>
+                { year: "2005", label: "Trade Begins" },
+                { year: "2017", label: "Company Founded" },
+                { year: "Now", label: "Charlotte's Best" },
+              ].map(({ year, label }) => (
+                <div key={year} className="bg-slate-100 border border-slate-200 rounded-xl p-3 text-center">
+                  <p className="text-emerald-600 font-black text-base">{year}</p>
+                  <p className="text-slate-500 text-xs font-medium mt-0.5 leading-tight">{label}</p>
                 </div>
               ))}
             </div>
-            <div className="absolute -bottom-3 -right-3 w-20 h-20 bg-emerald-50 rounded-2xl border border-emerald-100 -z-10" />
           </div>
         </div>
       </div>

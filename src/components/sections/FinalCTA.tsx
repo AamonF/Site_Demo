@@ -2,9 +2,11 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useDemoRequest } from "@/components/launch/DemoRequestProvider";
 import Button from "@/components/ui/Button";
 
 export default function FinalCTA() {
+  const { open } = useDemoRequest();
   return (
     <section
       id="contact"
@@ -29,20 +31,21 @@ export default function FinalCTA() {
             No commitment required
           </span>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight text-balance">
-            Want Your Business to Look Like the Best Option in Town?
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight text-balance tracking-tight">
+            Ready to show—not tell—what a new site could do?
           </h2>
 
-          <p className="mt-6 text-lg sm:text-xl text-accent-100 leading-relaxed text-balance max-w-2xl mx-auto">
+          <p className="mt-6 text-lg sm:text-xl text-blue-100/90 leading-relaxed text-balance max-w-2xl mx-auto">
             I can build a custom live demo that shows exactly what your upgraded
             website could look like — before you commit to anything.
           </p>
 
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Button
+              type="button"
               variant="secondary"
               size="lg"
-              href="mailto:hello@launchsitedemo.com"
+              onClick={open}
               className="bg-white hover:bg-slate-50 text-accent-700 border-transparent shadow-xl"
             >
               Get a Demo Built
@@ -54,7 +57,7 @@ export default function FinalCTA() {
               href="#demo-examples"
               className="text-white hover:bg-white/10 border border-white/30 hover:border-white/50"
             >
-              View Demo Examples
+              Browse live demos
             </Button>
           </div>
 

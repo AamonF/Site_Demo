@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef } from "react";
+import type { MouseEventHandler } from "react";
 import Link from "next/link";
 
 type ButtonVariant = "primary" | "secondary" | "ghost";
@@ -39,6 +40,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       external,
       className = "",
       children,
+      onClick,
+      type = "button",
       ...props
     },
     ref
@@ -56,20 +59,25 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             target="_blank"
             rel="noopener noreferrer"
             className={classes}
+            onClick={onClick as MouseEventHandler<HTMLAnchorElement> | undefined}
           >
             {children}
           </a>
         );
       }
       return (
-        <Link href={href} className={classes}>
+        <Link
+          href={href}
+          className={classes}
+          onClick={onClick as MouseEventHandler<HTMLAnchorElement> | undefined}
+        >
           {children}
         </Link>
       );
     }
 
     return (
-      <button ref={ref} className={classes} {...props}>
+      <button ref={ref} type={type} className={classes} onClick={onClick} {...props}>
         {children}
       </button>
     );

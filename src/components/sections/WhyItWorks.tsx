@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Eye, ShieldCheck, PhoneCall, BarChart2, Package } from "lucide-react";
+import { useDemoRequest } from "@/components/launch/DemoRequestProvider";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 
@@ -39,10 +40,11 @@ const benefits = [
 ];
 
 export default function WhyItWorks() {
+  const { open: openDemoRequest } = useDemoRequest();
   return (
     <section
       id="why-it-works"
-      className="py-20 lg:py-28 bg-slate-900 text-white overflow-hidden"
+      className="py-20 lg:py-28 bg-zinc-950 text-white overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -53,19 +55,19 @@ export default function WhyItWorks() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-block mb-3 text-accent-400 text-sm font-semibold tracking-wider uppercase">
-              Why This Model Works
+            <span className="inline-block mb-3 text-accent-400 text-xs font-bold tracking-[0.12em] uppercase">
+              Why this model works
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight text-balance">
-              Show the Result First.{" "}
-              <span className="text-accent-400">Close the Deal After.</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight text-balance tracking-tight">
+              Show the result first.{" "}
+              <span className="text-accent-400">Close after.</span>
             </h2>
-            <p className="mt-5 text-lg text-slate-300 leading-relaxed text-balance">
+            <p className="mt-5 text-lg text-zinc-300 leading-relaxed text-balance">
               Most web designers send proposals with no visuals and ask clients
               to imagine the outcome. That model is broken. I flip it — build
               the demo first, send the link, and let the work speak for itself.
             </p>
-            <p className="mt-4 text-base text-slate-400 leading-relaxed">
+            <p className="mt-4 text-base text-zinc-400 leading-relaxed">
               Local service businesses don&apos;t think in terms of design
               systems or tech stacks. They think in terms of{" "}
               <strong className="text-white font-semibold">
@@ -75,12 +77,13 @@ export default function WhyItWorks() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button variant="primary" size="md" href="#demo-examples">
-                See Demo Examples
+                Browse demos
               </Button>
               <Button
+                type="button"
                 variant="ghost"
                 size="md"
-                href="#contact"
+                onClick={openDemoRequest}
                 className="text-white hover:bg-white/10"
               >
                 Get a Demo Built

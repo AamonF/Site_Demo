@@ -44,8 +44,19 @@ export default function ACCResComSplit() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
 
           {/* Residential */}
-          <div className="group bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-2xl p-8 transition-all duration-300 relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-sky-500/40 to-transparent group-hover:via-sky-500/60 transition-colors" />
+          <div className="group bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-2xl overflow-hidden transition-all duration-300 relative">
+            {/* Photo header */}
+            <div className="relative h-44 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80&auto=format&fit=crop"
+                alt="Residential HVAC service"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/40 to-transparent" />
+              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-sky-500/60 to-transparent" />
+            </div>
+            <div className="p-8">
 
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center">
@@ -79,11 +90,23 @@ export default function ACCResComSplit() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
+            </div>{/* /p-8 */}
           </div>
 
           {/* Commercial */}
-          <div className="group bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-2xl p-8 transition-all duration-300 relative overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-amber-500/40 to-transparent group-hover:via-amber-500/60 transition-colors" />
+          <div className="group bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-2xl overflow-hidden transition-all duration-300 relative">
+            {/* Photo header */}
+            <div className="relative h-44 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80&auto=format&fit=crop"
+                alt="Commercial HVAC service"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/40 to-transparent" />
+              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-amber-500/60 to-transparent" />
+            </div>
+            <div className="p-8">
 
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
@@ -123,6 +146,7 @@ export default function ACCResComSplit() {
                 Call to Discuss
               </a>
             </div>
+            </div>{/* /p-8 */}
           </div>
         </div>
       </div>

@@ -10,16 +10,29 @@ export default function HGHero() {
   return (
     <section className="relative min-h-screen flex items-center bg-slate-950 overflow-hidden">
 
+      {/* Full-bleed hero photo — behind all copy */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-0 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1757800159710-080b937f517d?w=1920&q=80&auto=format&fit=crop')",
+        }}
+      />
+      <div className="absolute inset-0 z-0 bg-slate-950/75 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-r from-slate-950/90 via-emerald-950/50 to-slate-950/30 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-t from-slate-950/90 via-transparent to-slate-950/45 pointer-events-none" />
+
       {/* Soft emerald glow — upper left */}
-      <div className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full opacity-[0.08] pointer-events-none"
+      <div className="absolute -top-40 -left-40 z-0 w-[600px] h-[600px] rounded-full opacity-[0.08] pointer-events-none"
         style={{ background: "radial-gradient(circle, #10b981, transparent 70%)" }} />
 
       {/* Bottom fade to white */}
-      <div className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
+      <div className="absolute bottom-0 left-0 right-0 z-0 h-28 pointer-events-none"
         style={{ background: "linear-gradient(to bottom, transparent, #f8fafc)" }} />
 
       {/* Subtle dot grid */}
-      <div className="absolute inset-0 opacity-[0.04]"
+      <div className="absolute inset-0 z-0 opacity-[0.04]"
         style={{
           backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)",
           backgroundSize: "32px 32px",

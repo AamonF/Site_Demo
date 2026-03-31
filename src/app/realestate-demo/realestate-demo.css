@@ -1,0 +1,7 @@
+.realestate-demo-page {
+  font-family: var(--font-re-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+.realestate-demo-page .font-serif {
+  font-family: var(--font-re-heading), ui-serif, Georgia, serif;
+}

@@ -21,9 +21,22 @@ export default function ACCHero() {
   return (
     <section className="relative min-h-screen flex items-center bg-zinc-950 overflow-hidden">
 
+      {/* Full-bleed hero photo — behind all copy */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-0 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1766414629984-73a93e7caba0?w=1920&q=80&auto=format&fit=crop')",
+        }}
+      />
+      <div className="absolute inset-0 z-0 bg-zinc-950/75 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-r from-zinc-950/90 via-zinc-950/55 to-zinc-950/30 pointer-events-none" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-t from-zinc-950/90 via-transparent to-zinc-950/50 pointer-events-none" />
+
       {/* Grid texture overlay */}
       <div
-        className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        className="absolute inset-0 z-0 opacity-[0.025] pointer-events-none"
         style={{
           backgroundImage:
             "linear-gradient(rgba(251,191,36,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(251,191,36,0.5) 1px, transparent 1px)",
@@ -33,23 +46,23 @@ export default function ACCHero() {
 
       {/* Copper accent glow — upper right */}
       <div
-        className="absolute -top-32 right-0 w-[700px] h-[700px] rounded-full opacity-[0.05] pointer-events-none"
+        className="absolute -top-32 right-0 z-0 w-[700px] h-[700px] rounded-full opacity-[0.05] pointer-events-none"
         style={{ background: "radial-gradient(circle, #d97706, transparent 70%)" }}
       />
 
       {/* Right-side mechanical panel accent */}
-      <div className="absolute top-0 right-0 bottom-0 w-px bg-gradient-to-b from-transparent via-zinc-700 to-transparent hidden lg:block" />
-      <div className="absolute top-20 right-8 bottom-20 w-px bg-gradient-to-b from-transparent via-amber-500/20 to-transparent hidden lg:block" />
+      <div className="absolute top-0 right-0 bottom-0 z-0 w-px bg-gradient-to-b from-transparent via-zinc-700 to-transparent hidden lg:block" />
+      <div className="absolute top-20 right-8 bottom-20 z-0 w-px bg-gradient-to-b from-transparent via-amber-500/20 to-transparent hidden lg:block" />
 
       {/* Bottom fade to next section */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none z-10"
+        className="absolute bottom-0 left-0 right-0 z-0 h-32 pointer-events-none"
         style={{ background: "linear-gradient(to bottom, transparent, #09090b)" }}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-32 w-full">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-7">
+        <div className="max-w-4xl">
+          <div>
 
             {/* Eyebrow */}
             <motion.div
@@ -131,67 +144,31 @@ export default function ACCHero() {
                 </div>
               ))}
             </motion.div>
+
+            {/* Stat row (moved from former side panel; sits above full-bleed photo) */}
+            <motion.div
+              variants={fadeUp}
+              initial="initial"
+              animate="animate"
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3"
+            >
+              {[
+                { stat: "20+", label: "Years Experience" },
+                { stat: "100%", label: "Satisfaction" },
+                { stat: "All", label: "Major Brands" },
+                { stat: "24/7", label: "Emergency" },
+              ].map(({ stat, label }) => (
+                <div
+                  key={label}
+                  className="bg-zinc-900/80 backdrop-blur-sm border border-zinc-700/60 rounded-xl px-3 py-3 text-center"
+                >
+                  <span className="text-lg font-black text-amber-400 block">{stat}</span>
+                  <span className="text-zinc-400 text-[10px] font-medium">{label}</span>
+                </div>
+              ))}
+            </motion.div>
           </div>
-
-          {/* Right panel — mechanical stat cards */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="lg:col-span-5 hidden lg:block"
-          >
-            <div className="relative">
-              {/* Main card */}
-              <div className="bg-zinc-900 border border-zinc-700 rounded-2xl p-7 relative overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-amber-600" />
-                <div className="absolute top-4 right-4">
-                  <span className="bg-amber-500/15 text-amber-400 text-xs font-semibold px-2.5 py-1 rounded-full border border-amber-500/20">
-                    Available Now
-                  </span>
-                </div>
-
-                <p className="text-zinc-500 text-xs font-semibold uppercase tracking-widest mb-6">Why Choose Air Central</p>
-
-                <div className="space-y-4">
-                  {[
-                    { stat: "20+", label: "Years of Local Service" },
-                    { stat: "100%", label: "Satisfaction Commitment" },
-                    { stat: "All", label: "Major Brands Serviced" },
-                    { stat: "Res +", label: "Commercial Capability" },
-                  ].map(({ stat, label }) => (
-                    <div key={label} className="flex items-center gap-4 py-3 border-b border-zinc-800 last:border-0">
-                      <span className="text-2xl font-bold text-amber-500 w-14 flex-shrink-0">{stat}</span>
-                      <span className="text-zinc-300 text-sm">{label}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-6 pt-6 border-t border-zinc-800 flex items-center justify-between">
-                  <div>
-                    <p className="text-white font-semibold text-sm">Indian Trail, NC</p>
-                    <p className="text-zinc-500 text-xs mt-0.5">Serving Charlotte Metro</p>
-                  </div>
-                  <a
-                    href={COMPANY.phoneHref}
-                    className="flex items-center gap-2 bg-amber-500 hover:bg-amber-400 text-zinc-950 px-4 py-2 rounded-md text-sm font-bold transition-colors"
-                  >
-                    <Phone className="w-3.5 h-3.5" />
-                    Call Now
-                  </a>
-                </div>
-              </div>
-
-              {/* Floating accent card */}
-              <div className="absolute -bottom-6 -right-4 bg-zinc-800 border border-zinc-700 rounded-xl px-5 py-4 shadow-2xl">
-                <p className="text-zinc-500 text-xs mb-1">Emergency Service</p>
-                <p className="text-white font-semibold text-sm">Call Anytime</p>
-                <div className="flex items-center gap-1.5 mt-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                  <span className="text-amber-400 text-xs">Rapid Response</span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>

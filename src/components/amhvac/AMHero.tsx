@@ -22,23 +22,31 @@ export default function AMHero({ demo }: AMHeroProps) {
 
   return (
     <section
-      className="relative bg-gradient-to-br from-stone-950 via-emerald-950 to-stone-900 text-white overflow-hidden"
+      className="relative bg-stone-950 text-white overflow-hidden"
       aria-label="Hero"
     >
-      {/* Background texture */}
-      <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-48 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full bg-emerald-800/20 blur-3xl" />
-        <div className="absolute bottom-0 -right-32 w-[400px] h-[400px] rounded-full bg-emerald-900/30 blur-3xl" />
-        <div
-          className="absolute inset-0 opacity-[0.025]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: "32px 32px",
-          }}
-        />
+      {/* Background photo — z-0 so copy stays on top */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1724488751821-1415f5cf4960?w=1920&q=80&auto=format&fit=crop')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+      {/* Faded photo treatment (matches roofing hero) */}
+      <div aria-hidden="true" className="absolute inset-0 z-0 bg-stone-950/75 pointer-events-none" />
+      <div aria-hidden="true" className="absolute inset-0 z-0 bg-gradient-to-r from-stone-950/90 via-emerald-950/60 to-stone-950/35 pointer-events-none" />
+      <div aria-hidden="true" className="absolute inset-0 z-0 bg-gradient-to-t from-stone-950/90 via-transparent to-stone-950/40 pointer-events-none" />
+
+      {/* Glow accents */}
+      <div aria-hidden="true" className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-48 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full bg-emerald-600/10 blur-3xl" />
+        <div className="absolute bottom-0 -right-32 w-[400px] h-[400px] rounded-full bg-emerald-900/20 blur-3xl" />
       </div>
 
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10 lg:pt-24 lg:pb-14 text-center">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10 lg:pt-24 lg:pb-14 text-center">
         {/* Location pill */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -123,7 +131,7 @@ export default function AMHero({ demo }: AMHeroProps) {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.5 }}
-        className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 lg:pb-24"
+        className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 lg:pb-24"
       >
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {pricingHighlights.map((item) => (

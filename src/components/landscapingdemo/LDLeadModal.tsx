@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Phone, CheckCircle2, Loader2, Leaf } from "lucide-react";
 import { PHONE, PHONE_HREF } from "./constants";
+import { SITE_LEAD_SOURCE, submitSiteLead } from "@/lib/siteLeads";
 
 interface FormState {
   name: string;
@@ -27,6 +28,7 @@ export default function LDLeadModal() {
   const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [form, setForm] = useState<FormState>({
     name: "",
     phone: "",
@@ -59,9 +61,21 @@ export default function LDLeadModal() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1400));
+    const result = await submitSiteLead({
+      source: SITE_LEAD_SOURCE.landscapingLeadModal,
+      name: form.name.trim() || null,
+      phone: form.phone.trim() || null,
+      email: form.email.trim() || null,
+      service: form.service || null,
+      message: form.message.trim() || null,
+    });
     setLoading(false);
+    if (!result.ok) {
+      setSubmitError(result.error);
+      return;
+    }
     setSubmitted(true);
   };
 
@@ -204,6 +218,12 @@ export default function LDLeadModal() {
                         className="bg-stone-800 border border-stone-600 focus:border-emerald-600 text-white text-sm px-4 py-3 rounded-xl outline-none transition-colors resize-none placeholder-stone-500"
                       />
                     </div>
+
+                    {submitError && (
+                      <p className="text-sm text-red-400 bg-red-950/40 border border-red-900/50 rounded-xl px-3 py-2">
+                        {submitError}
+                      </p>
+                    )}
 
                     <button
                       type="submit"

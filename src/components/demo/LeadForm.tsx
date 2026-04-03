@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Send, CheckCircle2, Loader2 } from "lucide-react";
+import { SITE_LEAD_SOURCE, submitSiteLead } from "@/lib/siteLeads";
 
 const serviceOptions = [
   "HVAC Diagnostic ($89)",
@@ -20,6 +21,7 @@ interface LeadFormProps {
 export default function LeadForm({ bookingCTA, phone, phoneHref }: LeadFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -34,14 +36,25 @@ export default function LeadForm({ bookingCTA, phone, phoneHref }: LeadFormProps
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
     setLoading(true);
-    // Simulate submission
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 1200);
+    const result = await submitSiteLead({
+      source: SITE_LEAD_SOURCE.demoLeadForm,
+      name: form.name.trim() || null,
+      phone: form.phone.trim() || null,
+      email: form.email.trim() || null,
+      service: form.service || null,
+      message: form.message.trim() || null,
+      meta: { bookingCTA },
+    });
+    setLoading(false);
+    if (!result.ok) {
+      setSubmitError(result.error);
+      return;
+    }
+    setSubmitted(true);
   };
 
   if (submitted) {
@@ -139,6 +152,12 @@ export default function LeadForm({ bookingCTA, phone, phoneHref }: LeadFormProps
           ))}
         </select>
       </div>
+
+      {submitError && (
+        <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-xl px-3 py-2">
+          {submitError}
+        </p>
+      )}
 
       <div>
         <label htmlFor="message" className="block text-xs font-semibold text-slate-600 mb-1.5">

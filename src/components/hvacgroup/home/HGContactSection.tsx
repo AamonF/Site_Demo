@@ -1,19 +1,33 @@
 "use client";
 import { useState } from "react";
 import { Phone, Mail, Send, CheckCircle2, MapPin } from "lucide-react";
+import { SITE_LEAD_SOURCE, submitSiteLead } from "@/lib/siteLeads";
 
 const services = ["AC Repair", "AC Installation", "Heating Repair", "Heating Installation", "Indoor Air Quality", "Commercial HVAC", "General Inquiry"];
 
 export default function HGContactSection() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", phone: "", email: "", service: "", message: "" });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1200));
+    const result = await submitSiteLead({
+      source: SITE_LEAD_SOURCE.hvacGroupContact,
+      name: form.name.trim() || null,
+      phone: form.phone.trim() || null,
+      email: form.email.trim() || null,
+      service: form.service || null,
+      message: form.message.trim() || null,
+    });
     setLoading(false);
+    if (!result.ok) {
+      setSubmitError(result.error);
+      return;
+    }
     setSubmitted(true);
   };
 
@@ -108,6 +122,9 @@ export default function HGContactSection() {
                     placeholder="Describe your HVAC issue or what you need..."
                     className="w-full bg-slate-50 border border-slate-200 focus:border-emerald-400 focus:outline-none rounded-xl px-4 py-3 text-slate-900 text-sm placeholder:text-slate-400 transition-colors resize-none" />
                 </div>
+                {submitError && (
+                  <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-xl px-3 py-2">{submitError}</p>
+                )}
                 <button type="submit" disabled={loading}
                   className="w-full flex items-center justify-center gap-2.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-60 disabled:cursor-not-allowed text-white px-6 py-4 rounded-xl text-sm font-bold transition-all">
                   {loading ? (

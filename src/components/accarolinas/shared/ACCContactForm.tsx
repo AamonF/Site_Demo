@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Phone, Mail, User, MapPin, MessageSquare, Clock, AlertCircle } from "lucide-react";
 import { BASE, COMPANY } from "@/lib/accarolinas/data";
+import { SITE_LEAD_SOURCE, submitSiteLead } from "@/lib/siteLeads";
 
 const serviceOptions = [
   "AC Repair",
@@ -39,6 +40,7 @@ export default function ACCContactForm() {
     message: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const validate = () => {
     const e: Record<string, string> = {};
@@ -63,10 +65,26 @@ export default function ACCContactForm() {
       setErrors(validationErrors);
       return;
     }
+    setSubmitError(null);
     setLoading(true);
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    const result = await submitSiteLead({
+      source: SITE_LEAD_SOURCE.accCarolinasContact,
+      name: formData.name.trim(),
+      phone: formData.phone.trim(),
+      email: formData.email.trim(),
+      service: formData.service,
+      message: formData.message.trim() || null,
+      meta: {
+        city: formData.city,
+        urgency: formData.urgency,
+        contactMethod: formData.contactMethod,
+      },
+    });
     setLoading(false);
+    if (!result.ok) {
+      setSubmitError(result.error);
+      return;
+    }
     router.push(`${BASE}/thank-you`);
   };
 
@@ -230,6 +248,13 @@ export default function ACCContactForm() {
       </div>
 
       {/* Emergency note */}
+      {submitError && (
+        <div className="flex items-start gap-3 bg-red-500/10 border border-red-500/30 rounded-xl p-4">
+          <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />
+          <p className="text-red-300 text-sm">{submitError}</p>
+        </div>
+      )}
+
       {formData.urgency === "emergency" && (
         <div className="flex items-start gap-3 bg-red-500/10 border border-red-500/30 rounded-xl p-4">
           <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />

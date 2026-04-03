@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Phone, CheckCircle, Zap, ShieldCheck, ChevronRight, Loader2 } from "lucide-react";
+import { SITE_LEAD_SOURCE, submitSiteLead } from "@/lib/siteLeads";
 
 interface Props {
   isOpen: boolean;
@@ -34,6 +35,7 @@ interface FormData {
 
 export default function PELeadModal({ isOpen, onClose, phone, company }: Props) {
   const [formState, setFormState] = useState<FormState>("idle");
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [formData, setFormData] = useState<FormData>({
     name: "",
     phone: "",
@@ -71,11 +73,25 @@ export default function PELeadModal({ isOpen, onClose, phone, company }: Props) 
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
     setFormState("submitting");
-    // Simulate async submission
-    setTimeout(() => setFormState("success"), 1500);
+    const result = await submitSiteLead({
+      source: SITE_LEAD_SOURCE.precisionElectricLeadModal,
+      name: formData.name.trim() || null,
+      phone: formData.phone.trim() || null,
+      email: formData.email.trim() || null,
+      service: formData.service || null,
+      message: formData.message.trim() || null,
+      meta: { company },
+    });
+    if (!result.ok) {
+      setFormState("idle");
+      setSubmitError(result.error);
+      return;
+    }
+    setFormState("success");
   };
 
   const handleOverlayClick = (e: React.MouseEvent) => {
@@ -245,6 +261,12 @@ export default function PELeadModal({ isOpen, onClose, phone, company }: Props) 
                         className="w-full bg-zinc-800/60 border border-zinc-700 focus:border-yellow-400/60 rounded-xl px-4 py-3 text-white placeholder-zinc-600 text-sm outline-none transition-colors resize-none"
                       />
                     </div>
+
+                    {submitError && (
+                      <p className="text-sm text-red-400 bg-red-950/40 border border-red-900/50 rounded-xl px-3 py-2">
+                        {submitError}
+                      </p>
+                    )}
 
                     <button
                       type="submit"

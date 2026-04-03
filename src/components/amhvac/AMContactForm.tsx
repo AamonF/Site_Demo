@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, CheckCircle2, Loader2, Phone } from "lucide-react";
 import type { BusinessDemo } from "@/lib/demos/types";
+import { SITE_LEAD_SOURCE, submitSiteLead } from "@/lib/siteLeads";
 
 const serviceOptions = [
   "Cooling Diagnostic ($99)",
@@ -22,6 +23,7 @@ interface AMContactFormProps {
 export default function AMContactForm({ demo }: AMContactFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", phone: "", email: "", service: "", message: "" });
 
   const handleChange = (
@@ -30,10 +32,25 @@ export default function AMContactForm({ demo }: AMContactFormProps) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
     setLoading(true);
-    setTimeout(() => { setLoading(false); setSubmitted(true); }, 1200);
+    const result = await submitSiteLead({
+      source: SITE_LEAD_SOURCE.amHvacContact,
+      name: form.name.trim() || null,
+      phone: form.phone.trim() || null,
+      email: form.email.trim() || null,
+      service: form.service || null,
+      message: form.message.trim() || null,
+      meta: { demoSlug: demo.slug, demoName: demo.name },
+    });
+    setLoading(false);
+    if (!result.ok) {
+      setSubmitError(result.error);
+      return;
+    }
+    setSubmitted(true);
   };
 
   return (
@@ -174,6 +191,12 @@ export default function AMContactForm({ demo }: AMContactFormProps) {
                     className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 text-sm text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all resize-none"
                   />
                 </div>
+
+                {submitError && (
+                  <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-xl px-3 py-2">
+                    {submitError}
+                  </p>
+                )}
 
                 <button
                   type="submit" disabled={loading}

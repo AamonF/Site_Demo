@@ -9,7 +9,6 @@ import Benefits from "@/components/sections/Benefits";
 import IdealFor from "@/components/sections/IdealFor";
 import FinalCTA from "@/components/sections/FinalCTA";
 import Footer from "@/components/sections/Footer";
-import MobileStickyCTA from "@/components/ui/MobileStickyCTA";
 
 export default function HomePage() {
   return (
@@ -26,7 +25,6 @@ export default function HomePage() {
         <FinalCTA />
       </main>
       <Footer />
-      <MobileStickyCTA />
     </DemoRequestProvider>
   );
 }

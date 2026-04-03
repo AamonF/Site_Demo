@@ -13,6 +13,7 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, X } from "lucide-react";
 import Button from "@/components/ui/Button";
+import { isSupabaseConfigured, SITE_LEAD_SOURCE, submitSiteLead } from "@/lib/siteLeads";
 
 type DemoRequestContextValue = {
   open: () => void;
@@ -43,11 +44,13 @@ function DemoRequestModal({
   const firstFieldRef = useRef<HTMLInputElement>(null);
   const [submitted, setSubmitted] = useState(false);
   const [pending, setPending] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!open) {
       setSubmitted(false);
       setPending(false);
+      setSubmitError(null);
       return;
     }
     const t = window.setTimeout(() => firstFieldRef.current?.focus(), 100);
@@ -63,7 +66,7 @@ function DemoRequestModal({
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const name = String(fd.get("name") ?? "").trim();
@@ -75,7 +78,29 @@ function DemoRequestModal({
 
     if (!name || !email || !phone) return;
 
-    setPending(true);
+    setSubmitError(null);
+
+    if (isSupabaseConfigured()) {
+      setPending(true);
+      const result = await submitSiteLead({
+        source: SITE_LEAD_SOURCE.launchDemoRequest,
+        name,
+        email,
+        phone,
+        business: business || null,
+        industry: industry || null,
+        message: message || null,
+      });
+      setPending(false);
+      if (!result.ok) {
+        setSubmitError(result.error);
+        return;
+      }
+      setSubmitted(true);
+      window.setTimeout(() => onClose(), 2200);
+      return;
+    }
+
     const body = [
       `Demo request from Launch Site Demo`,
       ``,
@@ -92,11 +117,8 @@ function DemoRequestModal({
     const subject = encodeURIComponent(`Demo website request — ${business || name}`);
     const mailto = `mailto:${EMAIL}?subject=${subject}&body=${encodeURIComponent(body)}`;
     window.location.href = mailto;
-    setPending(false);
     setSubmitted(true);
-    window.setTimeout(() => {
-      onClose();
-    }, 2200);
+    window.setTimeout(() => onClose(), 2200);
   };
 
   return (
@@ -141,11 +163,23 @@ function DemoRequestModal({
               <div className="px-5 py-12 text-center">
                 <p className="text-zinc-900 font-semibold text-lg">Thanks — you&apos;re all set.</p>
                 <p className="mt-2 text-sm text-zinc-600">
-                  If your email app didn&apos;t open, reach us at{" "}
-                  <a href={`mailto:${EMAIL}`} className="text-accent-600 font-medium hover:underline">
-                    {EMAIL}
-                  </a>
-                  .
+                  {isSupabaseConfigured() ? (
+                    <>
+                      Questions? Reach us at{" "}
+                      <a href={`mailto:${EMAIL}`} className="text-accent-600 font-medium hover:underline">
+                        {EMAIL}
+                      </a>
+                      .
+                    </>
+                  ) : (
+                    <>
+                      If your email app didn&apos;t open, reach us at{" "}
+                      <a href={`mailto:${EMAIL}`} className="text-accent-600 font-medium hover:underline">
+                        {EMAIL}
+                      </a>
+                      .
+                    </>
+                  )}
                 </p>
               </div>
             ) : (
@@ -241,6 +275,12 @@ function DemoRequestModal({
                   />
                 </div>
 
+                {submitError && (
+                  <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-xl px-3 py-2">
+                    {submitError}
+                  </p>
+                )}
+
                 <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 pt-2 pb-1">
                   <Button type="button" variant="ghost" size="md" onClick={onClose}>
                     Cancel
@@ -252,8 +292,9 @@ function DemoRequestModal({
                 </div>
 
                 <p className="text-[11px] text-zinc-500 leading-snug">
-                  Submitting opens your email app with this information. You can send it as-is or edit
-                  before sending.
+                  {isSupabaseConfigured()
+                    ? "Your request is saved securely. We’ll follow up by email."
+                    : "Submitting opens your email app with this information. You can send it as-is or edit before sending."}
                 </p>
               </form>
             )}

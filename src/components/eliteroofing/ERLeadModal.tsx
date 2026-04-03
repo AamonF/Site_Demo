@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Phone, CheckCircle2, Loader2, Shield } from "lucide-react";
+import { SITE_LEAD_SOURCE, submitSiteLead } from "@/lib/siteLeads";
 
 const PHONE = "(704) 555-0123";
 const PHONE_HREF = "tel:7045550123";
@@ -29,6 +30,7 @@ export default function ERLeadModal() {
   const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [form, setForm] = useState<FormState>({
     name: "",
     phone: "",
@@ -62,9 +64,21 @@ export default function ERLeadModal() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1400));
+    const result = await submitSiteLead({
+      source: SITE_LEAD_SOURCE.roofingLeadModal,
+      name: form.name.trim() || null,
+      phone: form.phone.trim() || null,
+      email: form.email.trim() || null,
+      service: form.service || null,
+      message: form.message.trim() || null,
+    });
     setLoading(false);
+    if (!result.ok) {
+      setSubmitError(result.error);
+      return;
+    }
     setSubmitted(true);
   };
 
@@ -210,6 +224,12 @@ export default function ERLeadModal() {
                         className="bg-zinc-900 border border-zinc-700 focus:border-red-500 text-white text-sm px-4 py-3 rounded-xl outline-none transition-colors resize-none placeholder-zinc-600"
                       />
                     </div>
+
+                    {submitError && (
+                      <p className="text-sm text-red-400 bg-red-950/40 border border-red-900/50 rounded-xl px-3 py-2">
+                        {submitError}
+                      </p>
+                    )}
 
                     <button
                       type="submit"

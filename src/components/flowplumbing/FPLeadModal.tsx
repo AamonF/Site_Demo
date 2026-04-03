@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Phone, CheckCircle, Droplets, AlertTriangle } from "lucide-react";
+import { X, Phone, CheckCircle, Droplets, AlertTriangle, Loader2 } from "lucide-react";
+import { SITE_LEAD_SOURCE, submitSiteLead } from "@/lib/siteLeads";
 
 const PHONE_HREF = "tel:+17045550123";
 
@@ -24,6 +25,8 @@ const services = [
 
 export default function FPLeadModal({ open, onClose }: FPLeadModalProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [form, setForm] = useState({ name: "", phone: "", service: "", message: "" });
 
   useEffect(() => {
@@ -36,8 +39,22 @@ export default function FPLeadModal({ open, onClose }: FPLeadModalProps) {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
+    setLoading(true);
+    const result = await submitSiteLead({
+      source: SITE_LEAD_SOURCE.plumbingLeadModal,
+      name: form.name.trim() || null,
+      phone: form.phone.trim() || null,
+      service: form.service || null,
+      message: form.message.trim() || null,
+    });
+    setLoading(false);
+    if (!result.ok) {
+      setSubmitError(result.error);
+      return;
+    }
     setSubmitted(true);
   };
 
@@ -141,11 +158,25 @@ export default function FPLeadModal({ open, onClose }: FPLeadModalProps) {
                   />
                 </div>
 
+                {submitError && (
+                  <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-xl px-3 py-2">
+                    {submitError}
+                  </p>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full bg-sky-600 hover:bg-sky-700 text-white py-3.5 rounded-xl font-bold text-sm shadow-lg shadow-sky-600/25 hover:shadow-sky-600/40 transition-all duration-200 hover:-translate-y-0.5"
+                  disabled={loading}
+                  className="w-full bg-sky-600 hover:bg-sky-700 disabled:opacity-70 text-white py-3.5 rounded-xl font-bold text-sm shadow-lg shadow-sky-600/25 hover:shadow-sky-600/40 transition-all duration-200 hover:-translate-y-0.5 flex items-center justify-center gap-2"
                 >
-                  Request Service →
+                  {loading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Sending…
+                    </>
+                  ) : (
+                    "Request Service →"
+                  )}
                 </button>
 
                 <div className="text-center">

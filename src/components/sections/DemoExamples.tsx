@@ -86,7 +86,7 @@ export const demoData: DemoCard[] = [
     name: "Law Firm demo",
     industry: "Legal",
     summary:
-      "Professional firm layout with practice areas, case highlights, and trust-building structure for consultations.",
+      "Premium multi-page firm demo: practice templates, booking UX, AI intake assistant UI, and local SEO structure.",
     accent: "text-indigo-700",
     bg: "bg-indigo-50",
     border: "border-indigo-100/80",

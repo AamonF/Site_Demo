@@ -1,4 +1,4 @@
-/* Scoped typography for lawyer demo — premium serif headings */
+/* Law firm demo — premium typography */
 .lawyer-demo-page {
   font-family: var(--font-law-body), ui-sans-serif, system-ui, sans-serif;
 }
@@ -9,4 +9,11 @@
   font-family: var(--font-law-heading), ui-serif, Georgia, "Times New Roman", serif;
   font-feature-settings: "liga" 1, "kern" 1;
   letter-spacing: -0.02em;
+}
+
+/* Smooth section transitions */
+@media (prefers-reduced-motion: no-preference) {
+  .lawyer-demo-page section {
+    scroll-margin-top: 5.5rem;
+  }
 }

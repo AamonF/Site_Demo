@@ -9,6 +9,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        law: {
+          navy: {
+            DEFAULT: "#0a1628",
+            950: "#060d18",
+            900: "#0a1628",
+            800: "#0f2138",
+            700: "#1e3a5f",
+          },
+          gold: {
+            DEFAULT: "#c9a227",
+            light: "#e8d5a3",
+            dark: "#a68519",
+          },
+        },
         accent: {
           DEFAULT: "#2563EB",
           50: "#EFF6FF",

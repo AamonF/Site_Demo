@@ -1,0 +1,40 @@
+/* Scoped to .cd-law-demo — does not alter global styles */
+.cd-law-demo {
+  --cd-gold: #c9a227;
+  --cd-gold-dim: rgba(201, 162, 39, 0.12);
+  --cd-void: #03060c;
+  --cd-ink: #0a0f18;
+}
+
+.cd-law-demo .font-display {
+  font-family: var(--font-cd-display), ui-serif, Georgia, serif;
+}
+
+.cd-law-demo .font-body {
+  font-family: var(--font-cd-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+@keyframes cd-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cd-animate-fade-up {
+  animation: cd-fade-up 0.65s ease-out both;
+}
+
+.cd-animate-delay-1 {
+  animation-delay: 0.08s;
+}
+.cd-animate-delay-2 {
+  animation-delay: 0.16s;
+}
+.cd-animate-delay-3 {
+  animation-delay: 0.24s;
+}

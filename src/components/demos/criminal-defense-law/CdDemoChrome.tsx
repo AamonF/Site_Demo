@@ -31,22 +31,22 @@ export function CdDemoChrome({ children }: { children: React.ReactNode }) {
         className={`sticky ${bannerOffsetClass} z-40 border-b border-white/10 bg-[#03060c]/92 backdrop-blur-md`}
       >
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="flex items-center justify-between gap-3 py-3">
+          <div className="flex items-center justify-between gap-3 py-3 lg:grid lg:grid-cols-[minmax(11rem,1fr)_auto_minmax(0,1fr)] lg:items-center lg:gap-4 lg:py-3 xl:gap-6">
             <Link
               href={CD_DEMO_BASE}
-              className="group flex min-w-0 shrink flex-col leading-tight"
+              className="group flex min-w-0 max-w-[min(100%,18rem)] flex-col leading-tight sm:max-w-none lg:justify-self-start"
               onClick={() => setMenuOpen(false)}
             >
               <span className="truncate font-display text-base font-semibold tracking-tight text-white transition-colors group-hover:text-law-gold sm:text-lg md:text-xl">
                 {CD_BRAND.publicLabel}
               </span>
-              <span className="hidden text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-500 sm:block">
+              <span className="hidden text-[10px] font-medium uppercase leading-snug tracking-[0.18em] text-zinc-500 sm:block sm:whitespace-nowrap">
                 {CD_BRAND.tagline}
               </span>
             </Link>
 
             <nav
-              className="hidden flex-1 items-center justify-center gap-0.5 px-2 lg:flex xl:gap-1"
+              className="hidden items-center justify-center gap-0.5 px-1 lg:flex xl:gap-1 xl:px-2"
               aria-label="Page sections"
             >
               {PRIMARY_NAV.map(({ href, label }) => (
@@ -61,7 +61,7 @@ export function CdDemoChrome({ children }: { children: React.ReactNode }) {
               ))}
             </nav>
 
-            <div className="flex flex-shrink-0 items-center gap-1.5 sm:gap-3 md:gap-4">
+            <div className="flex flex-shrink-0 items-center justify-end gap-1.5 sm:gap-3 md:gap-4 lg:justify-self-end">
               <a
                 href={`tel:${CD_BRAND.phoneTel}`}
                 className="hidden items-center gap-1.5 text-sm font-semibold text-white sm:flex"
